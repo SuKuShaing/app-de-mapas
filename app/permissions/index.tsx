@@ -4,7 +4,7 @@ import { Text, View } from "react-native";
 const PermissionScreen = () => {
 	return (
 		<View>
-			<Text>PermissionScreen</Text>
+			<Text>Permission Screen</Text>
 		</View>
 	);
 };

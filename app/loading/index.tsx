@@ -4,7 +4,7 @@ import { Text, View } from "react-native";
 const LoadingScreen = () => {
 	return (
 		<View>
-			<Text>LoadingScreen 2</Text>
+			<Text>Loading Screen 2</Text>
 		</View>
 	);
 };

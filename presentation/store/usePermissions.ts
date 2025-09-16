@@ -25,7 +25,7 @@ export const usePermissionsStore = create<PermissionsState>()((set) => ({
 	checkLocationPermission: async () => {
 		const status = await checkLocationPermission();
 
-		set({ locationStatus: status });
+		set({ locationStatus: status }); // actualiza locationStatus cambiando de PermissionStatus.CHECKING a PermissionStatus.GRANTED o PermissionStatus.DENIED
 
 		return status;
 	},

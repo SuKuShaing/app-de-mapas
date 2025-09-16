@@ -45,5 +45,4 @@ export const checkLocationPermission = async () => {
 
 export const manualPermissionRequest = async () => {
     // To Do: lanzar los ajustes de la app para que el usuario pueda dar permisos
-
 }

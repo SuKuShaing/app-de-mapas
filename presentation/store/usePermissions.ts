@@ -1,6 +1,6 @@
 import {
-    checkLocationPermission,
-    requestLocationPermission,
+	checkLocationPermission,
+	requestLocationPermission,
 } from "@/core/actions/permissions/location";
 import { PermissionStatus } from "@/infrastructure/interfaces/location";
 import { create } from "zustand";
@@ -11,6 +11,10 @@ interface PermissionsState {
 	checkLocationPermission: () => Promise<PermissionStatus>;
 }
 
+/**
+ * Este archivo es el store (gestor de estado) de los permisos de la ubicación
+ * @returns Un store con el estado de los permisos de la ubicación y las funciones para solicitar y verificar el permiso
+ */
 export const usePermissionsStore = create<PermissionsState>()((set) => ({
 	locationStatus: PermissionStatus.CHECKING,
 

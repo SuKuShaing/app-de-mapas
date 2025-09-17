@@ -24,5 +24,7 @@ const PermissionScreen = () => {
 		</View>
 	);
 };
+// Tengo una sola oportunidad para pedir el permiso, si el usuario no lo da, queda como Denegado y por más que el
+// usuario vuelva a apretar el botón, no se lanzará la ventana de solicitar el permiso 
 
 export default PermissionScreen;

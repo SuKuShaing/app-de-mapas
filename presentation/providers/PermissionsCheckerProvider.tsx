@@ -1,6 +1,7 @@
 import { PermissionStatus } from "@/infrastructure/interfaces/location";
 import { router } from "expo-router";
 import { PropsWithChildren, useEffect, useState } from "react";
+import { AppState } from "react-native";
 import { usePermissionsStore } from "../store/usePermissions";
 
 const PermissionsCheckerProvider = ({ children }: PropsWithChildren) => {
@@ -32,7 +33,25 @@ const PermissionsCheckerProvider = ({ children }: PropsWithChildren) => {
         initialize();
     }, []);
 
-    // To Do: Estar pendiente cuando el estado de la aplicación cambie
+    /**
+     * Estar pendiente cuando el estado del permiso de la ubicación cuando la aplicación cambie de estado (este estado es sí está abierta, en 2do plano o cerrada)
+     */
+    useEffect(() => {
+
+        const subscription = AppState.addEventListener('change', (nextAppState) => {
+            // cuando el estado (el estado es sí está abierta, en 2do plano o cerrada) de la aplicación cambie, se ejecuta la función
+            console.log('nextAppState: ', nextAppState);
+            if (nextAppState === 'active') {
+                checkLocationPermission();
+            }
+        })
+
+        return () => {
+            // cuando ya no es necesaria la suscripción, la eliminamos
+            subscription.remove();
+        }
+    },[])
+
 
 	return <>{children}</>;
 };

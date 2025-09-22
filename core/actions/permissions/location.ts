@@ -1,5 +1,6 @@
 import { PermissionStatus } from "@/infrastructure/interfaces/location";
 import * as Location from "expo-location";
+import { Alert, Linking } from "react-native";
 
 /*
 Este archivo se encarga de la gestión de permisos de la ubicación.
@@ -17,7 +18,9 @@ export const requestLocationPermission = async (): Promise<PermissionStatus> => 
     const { status } = await Location.requestForegroundPermissionsAsync();
 
     if (status !== 'granted') {
-        // To Do: llamar a manualPermissionRequest();
+        if (status === 'denied') {
+            manualPermissionRequest();
+        }
         // puesto que sí el usuario nego los permisos, no se puede volver a pedir mediante requestForegroundPermissionsAsync();, solo se puede hacer manual
         return PermissionStatus.DENIED;
     }
@@ -44,5 +47,21 @@ export const checkLocationPermission = async () => {
 };
 
 export const manualPermissionRequest = async () => {
-    // To Do: lanzar los ajustes de la app para que el usuario pueda dar permisos
+    Alert.alert(
+        'Permisos de la ubicación necesario',
+        'Para continuar debe habilitar el permiso de ubicación en los ajustes de la app',
+        [
+            {
+                text: 'Abrir ajustes',
+                onPress: () => {
+                    Linking.openSettings();
+                }
+            },
+            {
+                text: 'Cancelar',
+                style: 'destructive',
+            }
+        ]
+
+    )
 }

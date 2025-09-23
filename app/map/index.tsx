@@ -9,7 +9,7 @@ const MapScreen = () => {
 				style={styles.map}
 				initialRegion={{ // Qué ciudad inicial mostrará el mapa
 					latitude: -33.42,
-					longitude: -70.73,
+					longitude: -70.65,
 					latitudeDelta: 0.0922,
 					longitudeDelta: 0.0421,
 				}}

@@ -15,7 +15,7 @@ Tiene tres funciones:
  * @returns Promise<Location.PermissionStatus>
  */
 export const requestLocationPermission = async (): Promise<PermissionStatus> => {
-    const { status } = await Location.requestForegroundPermissionsAsync();
+    const { status } = await Location.requestForegroundPermissionsAsync(); 
 
     if (status !== 'granted') {
         if (status === 'denied') {
@@ -34,7 +34,7 @@ export const requestLocationPermission = async (): Promise<PermissionStatus> => 
  * @returns Promise<Location.PermissionStatus>
  */
 export const checkLocationPermission = async () => {
-    const { status } = await Location.getForegroundPermissionsAsync();
+    const { status } = await Location.getForegroundPermissionsAsync(); // preguntamos al celular y retorna el estado del permiso de la ubicación
 
     switch (status) {
         case 'granted':

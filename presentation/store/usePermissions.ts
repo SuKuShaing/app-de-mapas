@@ -21,7 +21,7 @@ export const usePermissionsStore = create<PermissionsState>()((set) => ({
 	requestLocationPermission: async () => {
 		const status = await requestLocationPermission();
 
-		set({ locationStatus: status });
+		set({ locationStatus: status }); // Actualiza el locationStatus con el set
 
 		return status;
 	},

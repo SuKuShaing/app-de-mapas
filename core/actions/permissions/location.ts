@@ -3,7 +3,7 @@ import * as Location from "expo-location";
 import { Alert, Linking } from "react-native";
 
 /*
-Este archivo se encarga de la gestión de permisos de la ubicación.
+Este archivo se encarga de la gestión de permisos de ubicación que tiene la app.
 Tiene tres funciones:
 1. requestLocationPermission: solicita los permisos de la ubicación al usuario.
 2. checkLocationPermission: verifica si el usuario ha dado permisos de la ubicación.
@@ -46,6 +46,9 @@ export const checkLocationPermission = async () => {
     }
 };
 
+/**
+ * Lanza los ajustes de la app para que el usuario pueda dar permisos manualmente.
+ */
 export const manualPermissionRequest = async () => {
     Alert.alert(
         'Permisos de la ubicación necesario',

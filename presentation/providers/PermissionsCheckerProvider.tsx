@@ -4,13 +4,19 @@ import { PropsWithChildren, useEffect, useState } from "react";
 import { AppState } from "react-native";
 import { usePermissionsStore } from "../store/usePermissions";
 
+
+/**
+ * Este provider (Un componente que envuelve a toda la aplicación, provee de lógica o estados) se encarga de verificar si el usuario tiene los permisos de la ubicación.
+ * Si no tiene los permisos, redirige a la pantalla de permisos.
+ * Si tiene los permisos, redirige a la pantalla de mapas.
+ */
 const PermissionsCheckerProvider = ({ children }: PropsWithChildren) => {
     const { locationStatus, checkLocationPermission } = usePermissionsStore();
     const [isInitialized, setIsInitialized] = useState(false);
 
     /**
-     * si tenemos los permisos de la ubicación, redirigimos a la pantalla de mapas.
-     * si no tenemos los permisos de la ubicación, redirigimos a la pantalla de permisos.
+     * Si tenemos los permisos de la ubicación, redirigimos a la pantalla de mapas.
+     * Si no tenemos los permisos de la ubicación, redirigimos a la pantalla de permisos.
      */ 
     useEffect(() => {
         if (!isInitialized) return;
@@ -20,10 +26,10 @@ const PermissionsCheckerProvider = ({ children }: PropsWithChildren) => {
         } else if (locationStatus !== PermissionStatus.CHECKING) {
             router.replace("/permissions");
         }
-    },[locationStatus,isInitialized])
+    }, [locationStatus, isInitialized]);
 
     /**
-     * verifica en cada pantalla sí tenemos los permisos de la ubicación.
+     * Verifica en cada pantalla sí tenemos los permisos de la ubicación.
      */
     useEffect(() => {
         const initialize = async () => {
@@ -34,7 +40,8 @@ const PermissionsCheckerProvider = ({ children }: PropsWithChildren) => {
     }, []);
 
     /**
-     * Estar pendiente cuando el estado del permiso de la ubicación cuando la aplicación cambie de estado (este estado es sí está abierta, en 2do plano o cerrada)
+     * Estar pendiente cuando el estado del permiso de la ubicación cuando la aplicación cambie de estado 
+     * (este estado es sí está abierta, en 2do plano o cerrada)
      */
     useEffect(() => {
 

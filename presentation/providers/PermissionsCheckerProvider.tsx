@@ -46,18 +46,20 @@ const PermissionsCheckerProvider = ({ children }: PropsWithChildren) => {
     useEffect(() => {
 
         const subscription = AppState.addEventListener('change', (nextAppState) => {
+            // el AppState es un objeto que nos dice el estado de la aplicación, change (cambio de estado), blur (pierde el foco), focus (gana el foco) y memoryWarning (memoria baja, advertencia de cuando el dispositivo está bajo memoria)
             // cuando el estado (el estado es sí está abierta, en 2do plano o cerrada) de la aplicación cambie, se ejecuta la función
             console.log('nextAppState: ', nextAppState);
             if (nextAppState === 'active') {
                 checkLocationPermission();
             }
-        })
+        });
 
         return () => {
-            // cuando ya no es necesaria la suscripción, la eliminamos
+            // la constante subscription es del tipo NativeEventSubscription, una suscripción, cada vez que se ejecuta crea una suscripción a un servicio nativo, sí no la limpiamos se acumulan y ralentizan nuestra app
+            // cuando ya no es necesaria la suscripción, después de checkear lo que queríamos, la eliminamos
             subscription.remove();
-        }
-    },[])
+        };
+    }, []);
 
 
 	return <>{children}</>;

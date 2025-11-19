@@ -51,7 +51,7 @@ export const checkLocationPermission = async () => {
  */
 export const manualPermissionRequest = async () => {
     Alert.alert(
-        'Permisos de la ubicación necesario',
+        'La ubicación es totalmente necesaria',
         'Para continuar debe habilitar el permiso de ubicación en los ajustes de la app',
         [
             {

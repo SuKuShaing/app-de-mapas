@@ -17,6 +17,7 @@ const PermissionScreen = () => {
 			justifyContent: "center",
 			alignItems: "center",
 		}}>
+			<ThemedText style={{ textAlign: "center", paddingHorizontal: 40 }}>Necesitamos saber tu ubicación para mostrar lo que hay en el área.</ThemedText>
 			<ThemePressable onPress={requestLocationPermission}>
 				Habilitar ubicación
 			</ThemePressable>

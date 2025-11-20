@@ -7,6 +7,7 @@ const MapScreen = () => {
 		<View style={styles.container}>
 			<MapView 
 				style={styles.map}
+				provider={PROVIDER_GOOGLE} // esto es para ios y android usen google maps, para android es obligatorio, para ios es opcional (si no está, ocupa apple maps)
 				initialRegion={{ // Qué ciudad inicial mostrará el mapa
 					latitude: -33.42,
 					longitude: -70.65,
@@ -14,7 +15,6 @@ const MapScreen = () => {
 					longitudeDelta: 0.0421,
 				}}
 				showsPointsOfInterest={false} // esto es para que no se muestren los puntos de interés
-				provider={PROVIDER_GOOGLE} // esto es para ios ya que android siempre usa google maps
 			/>
 		</View>
 	);

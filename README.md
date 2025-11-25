@@ -58,3 +58,13 @@ Este archivo se necesita para obtener el hash de firma necesario para Google Map
 ```sh
 keytool -genkey -v -keystore C:\Users\YourUserNameHere\.android\debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000
 ```
+
+### Prebuild
+```sh
+npx expo prebuild --clean
+```
+
+### Run Android
+```sh
+npx expo run:android
+```

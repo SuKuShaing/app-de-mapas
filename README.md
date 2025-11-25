@@ -1,50 +1,60 @@
-# Welcome to your Expo app 👋
+# Proyecto de App de Mapas
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Es un proyecto de prueba para ver como usar mapas en aplicaciones móviles con React Native y Expo.
 
-## Get started
+## Características
 
-1. Install dependencies
+- Mapa interactivo con marcadores
+- Búsqueda de ubicaciones
+- Navegación por coordenadas
+- Soporte para iOS y Android
+- Uso de Google Maps API
+- Configuración de claves API para Google Maps (requerida para funcionamiento en producción)
+- Manejo de permisos de ubicación
+- Ejemplos de marcadores y rutas
+- Ejemplos de geocodificación (conversión entre direcciones y coordenadas)
+- Ejemplos de direcciones y coordenadas
+- Ejemplos de búsqueda de lugares
+- Ejemplos de cálculo de rutas (entre puntos)
+- Ejemplos de manejo de eventos del mapa (tocar, arrastrar, etc.)
 
-   ```bash
-   npm install
-   ```
+## Tecnologías
 
-2. Start the app
+- React Native
+- Expo
+- Google Maps API
+- TypeScript
 
-   ```bash
-   npx expo start
-   ```
+## Requisitos
 
-In the output, you'll find options to open the app in a
+### Instalar Java 17
+¿por qué el 17 y no la última versión? Por compatibilidad con las herramientas de construcción de Android, compileSdk y Gradle.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+[Conversación en Perplexity que tiene más info](https://www.perplexity.ai/search/tengo-ese-error-como-lo-soluci-6mF7TUT4RkuxgK9J4Kc1yw#0)
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+#### Paso a paso para instalar Java 17 en Windows 11
+1) Descargar la última versión de Java 17 (hasta ahora es 17.0.2) desde aquí https://jdk.java.net/archive/#fromHistory
+2) Descomprimir la carpeta en C:/ o en C:/program_files/
+3) copiar la ruta, por ejemplo C:\jdk-17.0.2
+4) ir a inicio y buscar "Variables de entorno"
+5) En la sección "Variables del sistema", haz clic en "Nuevo...".
+6) En el campo "Nombre de variable" escribe: JAVA_HOME
+7) En el campo "Valor de variable" pega la ruta que copiaste en el paso 3.
+8) Haz clic en "Aceptar"
+9) Luego, en la lista de "Variables del sistema", ubica la variable llamada "Path" y selecciona "Editar...".
+10) Haz clic en "Nuevo" y escribe esta línea: %JAVA_HOME%\bin
+11) Guarda todos los cambios haciendo clic en "Aceptar" en todas las ventanas.
+12) Abre una consola nueva (PowerShell o cmd) y verifica con: 
+```sh
+echo %JAVA_HOME%
+java -version
 ```
+13) sí te responde con la versión de java, todo ha sido correctamente instalado
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Seba2Seba: en un futuro probar sí las nuevas versiones de Java tienen compatibilidad con las herramientas de construcción de Android.
 
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+#### Crear el archivo debug.keystore
+Este archivo se necesita para obtener el hash de firma necesario para Google Maps.
+```sh
+keytool -genkey -v -keystore C:\Users\YourUserNameHere\.android\debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000
+```

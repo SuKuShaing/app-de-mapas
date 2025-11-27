@@ -53,11 +53,22 @@ java -version
 
 Seba2Seba: en un futuro probar sí las nuevas versiones de Java tienen compatibilidad con las herramientas de construcción de Android.
 
-#### Crear el archivo debug.keystore
+
+#### Crear el archivo debug.keystore (colocar tu ruta en tu pc)
 Este archivo se necesita para obtener el hash de firma necesario para Google Maps.
 ```sh
 keytool -genkey -v -keystore C:\Users\YourUserNameHere\.android\debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000
 ```
+Este comando lo crea y lo muestra, sí no lo muestra, puedes usar el comando que está en google console en la Clave de Api y ocupar el que es para tu dispositivo.
+
+### Obtener el hash de firma (colocar tu ruta en tu pc)
+Sí ya está creado el debug.keystore, este comando solo te muestra el hash de firma, se obtiene de google console.
+```sh
+keytool -list -v -keystore C:\Users\YourUserNameHere\.android\debug.keystore -alias androiddebugkey -storepass android -keypass android
+```
+
+Sí el error es que no reconoce el comando keytool, es porque no está instalado Java.
+
 
 ### Prebuild
 ```sh

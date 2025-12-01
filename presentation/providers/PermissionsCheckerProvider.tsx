@@ -2,7 +2,7 @@ import { PermissionStatus } from "@/infrastructure/interfaces/location";
 import { router } from "expo-router";
 import { PropsWithChildren, useEffect, useState } from "react";
 import { AppState } from "react-native";
-import { usePermissionsStore } from "../store/usePermissions";
+import { usePermissionsStore } from "../store/usePermissionsStore";
 
 
 /**

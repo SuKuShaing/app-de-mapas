@@ -71,11 +71,13 @@ Sí el error es que no reconoce el comando keytool, es porque no está instalado
 
 
 ### Prebuild
+Para crear una apk que corra en el emulador o en el celular, ya no está corriendo Expo, ahora es la app que creamos.
 ```sh
 npx expo prebuild --clean
 ```
 
 ### Run Android
+Ahora sí, con la apk creada, se puede ejecutar en el emulador o en el celular.
 ```sh
 npx expo run:android
 ```

@@ -1,5 +1,5 @@
 import { StyleSheet, View } from "react-native";
-import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
+import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 
 const MapScreen = () => {
 	return (
@@ -14,7 +14,34 @@ const MapScreen = () => {
 					longitudeDelta: 0.0421,
 				}}
 				showsPointsOfInterest={false} // esto es para que no se muestren los puntos de interés
-			/>
+			>
+				<Marker 
+					coordinate={{
+						latitude: -33.42,
+						longitude: -70.65,
+					}}
+					title="Marcador Hola Mundo"
+					description="Descripción del marcador"
+				/>
+				{/* -33.436900, -70.649422 */}
+				<Marker 
+					coordinate={{
+						latitude: -33.436900,
+						longitude: -70.649422,
+					}}
+					title="Al lado de Plaza de Armas"
+					description="Creo que es una galería"
+				/>
+				{/* -33.433114, -70.651705 */}
+				<Marker 
+					coordinate={{
+						latitude: -33.433114,
+						longitude: -70.651705,
+					}}
+					title="Cal y Canto"
+					description="Eviten pasar por ahí xD"
+				/>
+			</MapView>
 		</View>
 	);
 };

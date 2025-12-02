@@ -6,7 +6,7 @@ import { create } from "zustand";
 interface LocationState {
     lastKnownLocation: LatLng | null; // última ubicación conocida
     userLocationList: LatLng[];
-    watchSuscriptionId: LocationSubscription | null;
+    watchSubscriptionId: LocationSubscription | null;
 
     getLocation: () => Promise<LatLng>;
     watchLocation: () => void;
@@ -19,7 +19,7 @@ interface LocationState {
 export const useLocationStore = create<LocationState>()( (set, get) => ({
     lastKnownLocation: null,
     userLocationList: [],
-    watchSuscriptionId: null,
+    watchSubscriptionId: null,
 
     getLocation: async() => {
         const location = await getCurrentLocation();
@@ -28,25 +28,25 @@ export const useLocationStore = create<LocationState>()( (set, get) => ({
     },
 
     watchLocation: async () => {
-        const oldSuscription = get().watchSuscriptionId;
-        if(oldSuscription !== null) {
+        const oldSubscription = get().watchSubscriptionId;
+        if(oldSubscription !== null) {
             get().clearWatchLocation();
         }
-        
-        const watchSusciption = await watchCurrentPosition(
+
+        const watchSubscription = await watchCurrentPosition(
             (latLng) => {
                 set({
                     lastKnownLocation: latLng,
                     userLocationList: [...get().userLocationList, latLng],
-                })
+                });
             }
         );
 
-        set({watchSuscriptionId: watchSusciption})
+        set({watchSubscriptionId: watchSubscription})
     },
 
     clearWatchLocation: () => {
-        const subscription = get().watchSuscriptionId;
+        const subscription = get().watchSubscriptionId;
 
         if ( subscription !== null ) {
             subscription.remove();

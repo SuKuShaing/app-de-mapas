@@ -1,6 +1,10 @@
 import { LatLng } from "@/infrastructure/interfaces/lat-Lng";
 import * as Location from "expo-location";
 
+/**
+ * Con esta función obtenemos la ubicación del usuario
+ * @returns coords, con latitude y longitude
+ */
 export const getCurrentLocation = async():Promise<LatLng> => {
     try {
         const { coords } = await Location.getCurrentPositionAsync({
@@ -25,11 +29,11 @@ export const watchCurrentPosition = (
         // Esto está pidiendo la ubicación a la api del celular, envió la configuración
         accuracy: Location.Accuracy.Highest,
         timeInterval: 1000,
-        distanceInterval: 10,
+        // distanceInterval: 10,
     }, ({ coords }) => {
         locationCallback({
             latitude: coords.latitude,
             longitude: coords.longitude
-        })
-    })
-}
+        });
+    });
+};

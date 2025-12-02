@@ -1,10 +1,18 @@
+import CustomMap from "@/presentation/components/maps/CustomMap";
 import { StyleSheet, View } from "react-native";
-import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
+// import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 
 const MapScreen = () => {
 	return (
-		<View style={styles.container}>
-			<MapView 
+		<View>
+			<CustomMap 
+				initialLocation={{
+					latitude: -33.42,
+					longitude: -70.65,
+				}}
+				/>
+
+			{/* <MapView 
 				style={styles.map}
 				provider={PROVIDER_GOOGLE} // esto es para ios y android usen google maps, para android es obligatorio, para ios es opcional (si no está, ocupa apple maps)
 				initialRegion={{ // Qué ciudad inicial mostrará el mapa
@@ -14,7 +22,8 @@ const MapScreen = () => {
 					longitudeDelta: 0.0421,
 				}}
 				showsPointsOfInterest={false} // esto es para que no se muestren los puntos de interés
-			/>
+			/> */}
+
 		</View>
 	);
 };

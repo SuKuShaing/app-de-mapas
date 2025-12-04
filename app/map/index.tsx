@@ -1,45 +1,50 @@
 import CustomMap from "@/presentation/components/maps/CustomMap";
-import { StyleSheet, View } from "react-native";
-// import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
+import { useLocationStore } from "@/presentation/store/useLocationStore";
+import { useEffect } from "react";
+import { ActivityIndicator, View } from "react-native";
 
 const MapScreen = () => {
-	return (
-		<View>
-			<CustomMap 
-				initialLocation={{
-					latitude: -33.42,
-					longitude: -70.65,
-				}}
-				/>
+    const { lastKnownLocation, getLocation } = useLocationStore();
 
-			{/* <MapView 
-				style={styles.map}
-				provider={PROVIDER_GOOGLE} // esto es para ios y android usen google maps, para android es obligatorio, para ios es opcional (si no está, ocupa apple maps)
-				initialRegion={{ // Qué ciudad inicial mostrará el mapa
-					latitude: -33.42,
-					longitude: -70.65,
-					latitudeDelta: 0.0922,
-					longitudeDelta: 0.0421,
-				}}
-				showsPointsOfInterest={false} // esto es para que no se muestren los puntos de interés
-			/> */}
+    useEffect(() => {
+        if (lastKnownLocation === null) {
+            getLocation();
+        }
+    }, []);
 
-		</View>
-	);
+    if (lastKnownLocation === null) { // sí no tenemos ninguna ubicación mostramos un ActivityIndicator
+        return (
+            <View
+                style={{
+                    flex: 1,
+                    justifyContent: "center",
+                    alignItems: "center",
+                }}
+            >
+                <ActivityIndicator />
+            </View>
+        );
+    }
+
+    return (
+        <View>
+            <CustomMap initialLocation={lastKnownLocation} />
+        </View>
+    );
 };
 
 export default MapScreen;
 
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-	},
-	map: {
-		width: "100%",
-		height: "100%",
-		// backgroundColor: "red",
-	}
-})
+// const styles = StyleSheet.create({
+// 	container: {
+// 		flex: 1,
+// 	},
+// 	map: {
+// 		width: "100%",
+// 		height: "100%",
+// 		// backgroundColor: "red",
+// 	}
+// })
 
 /**
  * para ver la key de google maps, se debe ir a la consola de google cloud y crear un proyecto nuevo, y luego crear una clave API
@@ -52,6 +57,6 @@ const styles = StyleSheet.create({
  * keytool -genkey -v -keystore C:\Users\YourUserNameHere\.android\debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000
  * Te preguntará unas cuantas cosas y después creará el archivo.
  * ahora que tienes el archivo, debes ejecutar el primer comando de la los que deje aquí para obtener la huella digital.
- * 
+ *
  * más info aquí: https://stackoverflow.com/questions/27037194/keystore-file-doesnt-exist/74223428#74223428
  */

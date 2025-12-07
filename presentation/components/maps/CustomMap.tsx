@@ -3,6 +3,7 @@ import { useLocationStore } from "@/presentation/store/useLocationStore";
 import { useEffect, useRef } from "react";
 import { StyleSheet, View, ViewProps } from "react-native";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
+import FAB from "../shared/FAB";
 
 interface Props extends ViewProps {
     showUserLocation?: boolean;
@@ -55,6 +56,15 @@ const CustomMap = ({
                 }}
                 showsPointsOfInterest={false} // esto es para que no se muestren los puntos de interés
                 showsUserLocation={showUserLocation}
+            />
+
+            <FAB
+                style={{
+                    bottom: 20,
+                    right: 20,
+                }}
+                onPress={() => {}}
+                iconName="airplane-outline"
             />
         </View>
     );

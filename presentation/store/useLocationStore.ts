@@ -4,11 +4,11 @@ import { LocationSubscription } from "expo-location";
 import { create } from "zustand";
 
 interface LocationState {
-    lastKnownLocation: LatLng | null; // última ubicación conocida
-    userLocationList: LatLng[];
-    watchSubscriptionId: LocationSubscription | null;
+    lastKnownLocation: LatLng | null;   // última ubicación conocida
+    userLocationList: LatLng[];         // lista de ubicaciones en las que ha estado el usuario
+    watchSubscriptionId: LocationSubscription | null;   // el id de la suscripción de de seguimiento del usuario
 
-    getLocation: () => Promise<LatLng>;
+    getLocation: () => Promise<LatLng>; // obtiene la ubicación actual del usuario cuando se ejecuta
     watchLocation: () => void;
     clearWatchLocation: () => void;
 }
@@ -29,11 +29,11 @@ export const useLocationStore = create<LocationState>()( (set, get) => ({
 
     watchLocation: async () => {
         const oldSubscription = get().watchSubscriptionId;
-        if(oldSubscription !== null) {
+        if(oldSubscription !== null) { //sí existe una suscripción previa la borramos
             get().clearWatchLocation();
         }
 
-        const watchSubscription = await watchCurrentPosition(
+        const watchSubscription = await watchCurrentPosition( // al ejecutarse guarda la última posición conocida en lastKnownLocation y en userLocationList
             (latLng) => {
                 set({
                     lastKnownLocation: latLng,
@@ -42,10 +42,10 @@ export const useLocationStore = create<LocationState>()( (set, get) => ({
             }
         );
 
-        set({watchSubscriptionId: watchSubscription})
+        set({watchSubscriptionId: watchSubscription}) // guarda el id de la suscripción
     },
 
-    clearWatchLocation: () => {
+    clearWatchLocation: () => { // limpia la suscripción sí es que existe alguna
         const subscription = get().watchSubscriptionId;
 
         if ( subscription !== null ) {

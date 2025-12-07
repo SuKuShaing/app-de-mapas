@@ -1,6 +1,6 @@
 import { LatLng } from "@/infrastructure/interfaces/lat-Lng";
 import { useLocationStore } from "@/presentation/store/useLocationStore";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { StyleSheet, View, ViewProps } from "react-native";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import FAB from "../shared/FAB";
@@ -16,8 +16,13 @@ const CustomMap = ({
     ...rest
 }: Props) => {
     const mapRef = useRef<MapView>(null);
-    const { watchLocation, clearWatchLocation, lastKnownLocation } =
-        useLocationStore();
+    const [isFollowingUser, setIsFollowingUser] = useState<Boolean>(true);
+    const {
+        watchLocation,
+        clearWatchLocation,
+        lastKnownLocation,
+        getLocation,
+    } = useLocationStore();
 
     useEffect(() => {
         watchLocation();
@@ -28,10 +33,10 @@ const CustomMap = ({
     }, []);
 
     useEffect(() => {
-        if (lastKnownLocation) {
+        if (lastKnownLocation && isFollowingUser) {
             moveCameraToLocation(lastKnownLocation);
         }
-    }, [lastKnownLocation]);
+    }, [lastKnownLocation, isFollowingUser]);
 
     const moveCameraToLocation = (latLng: LatLng) => {
         if (!mapRef.current) return;
@@ -41,10 +46,26 @@ const CustomMap = ({
         });
     };
 
+    //movemos la cámara hasta la ubicación inicial o la última ubicación conocida
+    const moveToCurrentLocation = async () => {
+        if (!lastKnownLocation) {
+            moveCameraToLocation(initialLocation);
+        } else {
+            moveCameraToLocation(lastKnownLocation);
+        }
+
+        const location = await getLocation();
+        if (!location) return;
+
+        moveCameraToLocation(location);
+        // setIsFollowingUser(true);
+    };
+
     return (
         <View {...rest}>
             <MapView
                 ref={mapRef}
+                onTouchStart={() => setIsFollowingUser(false)} // cuándo el usuario toca la pantalla del mapa
                 style={styles.map}
                 provider={PROVIDER_GOOGLE} // esto es para ios y android usen google maps, para android es obligatorio, para ios es opcional (si no está, ocupa apple maps)
                 initialRegion={{
@@ -60,11 +81,23 @@ const CustomMap = ({
 
             <FAB
                 style={{
+                    bottom: 80,
+                    right: 20,
+                }}
+                // onPress={moveToCurrentLocation}
+                onPress={() => setIsFollowingUser(!isFollowingUser)} // sigue o deja de seguir al usuario
+                iconName={
+                    isFollowingUser ? "walk-outline" : "accessibility-outline"
+                }
+            />
+            <FAB
+                style={{
                     bottom: 20,
                     right: 20,
                 }}
-                onPress={() => {}}
-                iconName="airplane-outline"
+                onPress={moveToCurrentLocation}
+                // onPress={() => setIsFollowingUser(true)}
+                iconName="compass-outline"
             />
         </View>
     );
